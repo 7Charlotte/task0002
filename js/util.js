@@ -1,8 +1,8 @@
-var arr = ["1","3","er"];
-isArray(arr);
+// var arr = ["1","3","er"];
+// isArray(arr);
 
-isFunction(isArray);
-isNumber(3.2);
+// isFunction(isArray);
+// isNumber(3.2);
 
 
 
@@ -77,10 +77,8 @@ function uniqArray(arr) {
 }
 
 // 使用示例
-var a = [2 ,1, 3, 5, 7, 5, 3, 3, 8, 9, 9];
-var b = uniqArray(a);
-console.log(b); 
-
+// var a = [2 ,1, 3, 5, 7, 5, 3, 3, 8, 9, 9];
+// var b = uniqArray(a);
 
 
 
@@ -96,9 +94,6 @@ function simpleTrim(str) {
 
  var testarr = "    你们都没我长     ";
  var trimmedstr = testarr.trim();
- console.log(testarr);
- console.log(trimmedstr);
-
 
 
 //////////////////////////////////////////////////////////////////
@@ -113,12 +108,13 @@ function each(arr, fn) {
 // 其中fn函数可以接受两个参数：item和index
 
 // 使用示例
-var arr = ['java', 'c', 'php', 'html'];
-function output(item) {
-    console.log(item)
-}
-each(arr, output);  // java, c, php, html
+// var arr = ['java', 'c', 'php', 'html'];
+// function output(item) {
 
+//     console.log(item)
+// }
+// // each(arr, output);  // java, c, php, html
+// 
 // // 使用示例
 // var arr = ['java', 'c', 'php', 'html'];
 // function output(item, index) {
@@ -126,19 +122,139 @@ each(arr, output);  // java, c, php, html
 // }
 // each(arr, output);  // 0:java, 1:c, 2:php, 3:html
 
-// // 获取一个对象里面第一层元素的数量，返回一个整数
-// function getObjectLength(obj) {}
+ // 获取一个对象里面第一层元素的数量，返回一个整数
+ function getObjectLength(obj) {
+     var n = 0;
+     for (i in obj){
+         n++;
+     }
+     return n;
+ }
 
-// // 使用示例
-// var obj = {
-//     a: 1,
-//     b: 2,
-//     c: {
-//         c1: 3,
-//         c2: 4
+ // 使用示例
+ var obj = {
+     a: 1,
+     b: 2,
+     c: {
+         c1: 3,
+         c2: 4
+     }
+ };
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// 为element增加一个样式名为newClassName的新样式
+function addClass(element, newClassName) {
+    element.setAttribute("class", "newClassName");
+}
+
+// 移除element中的样式oldClassName // removeAttribute("style"
+function removeClass(element, oldClassName) {
+    element.removeAttribute("oldClassName");
+}
+
+// 判断siblingNode和element是否为同一个父元素下的同一级的元素，返回bool值
+function isSiblingNode(element, siblingNode) {
+    if (element.parentNode === siblingNode.parentNode) {
+        return true;
+    }else{
+        return false;
+    };
+}
+
+// 获取element相对于浏览器窗口的位置，返回一个对象{x, y}
+function getPosition(element) {
+    var leftDistance = element.getBoundingClientRect().left;
+    var topDistance = element.getBoundingClientRect().top;
+}
+
+
+
+// 实现一个简单的Query
+function $(selector) {
+
+}
+
+// 可以通过id获取DOM对象，通过#标示，例如
+$("#adom"); // 返回id为adom的DOM对象
+
+// 可以通过tagName获取DOM对象，例如
+$("a"); // 返回第一个<a>对象
+
+// 可以通过样式名称获取DOM对象，例如
+$(".classa"); // 返回第一个样式定义包含classa的对象
+
+// 可以通过attribute匹配获取DOM对象，例如
+$("[data-log]"); // 返回第一个包含属性data-log的对象
+
+$("[data-time=2015]"); // 返回第一个包含属性data-time且值为2015的对象
+
+// 可以通过简单的组合提高查询便利性，例如
+$("#adom .classa"); // 返回id为adom的DOM所包含的所有子节点中，第一个样式定义包含classa的对象
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// 给一个element绑定一个针对event事件的响应，响应函数为listener
+// function addEvent(element, event, listener) {
+//     element.addEventListener(event,listener,false);
+// }
+
+// // 例如：
+// function clicklistener(event) {
+//     alert("good day");
+// }
+// addEvent($("#doma"), "click", clicklistener);
+
+// // 移除element对象对于event事件发生时执行listener的响应
+// function removeEvent(element, event, listener) {
+//     element.removeEventListener(event,listener,false);
 //     }
-// };
-// console.log(getObjectLength(obj)); // 3
 
+
+
+function splitString(str){
+    return str.split(/(?:\s|,|，|、|;)+/);//正则：[]表示或关系，\s表示空白字符（tab, enter, space）
+}
+
+function checkParam(list) {
+    var filterred = uniqArray(list);
+    if(filterred.length > 10){
+        return false;
+    }
+    return true;
+}
+
+function showCheckbox(list) {
+    var output = document.getElementById("output");
+    output.innerHTML = "";//清空output的内容
+    for(var i in list) {
+        var input = document.createElement("input");
+        input.type = "checkbox";
+        var label = document.createElement("label");
+        output.appendChild(label);//将label添加到output里面
+        var content = document.createTextNode(list[i]);//用数组中的内容新建字符元素
+        label.appendChild(content);//将数组内容写入label
+        output.insertBefore(input, label);//将label插入input后面 var insertedNode = parentNode.insertBefore(newNode, referenceNode)
+    }
+}
+
+function oninput() {
+    var content = document.getElementById("hobby");
+    if(content.value.length == 0)
+    {
+        alert("至少填写一个爱好");
+        return;
+    }
+    var list = splitString(content.value); 
+    if(checkParam(list) == true) {
+        showCheckbox(list);
+    } else {
+        alert("爱好不能超过10个。");    
+    }
+}
+
+var btn = document.getElementById("addbtn");
+btn.addEventListener("click", oninput, false);//事件侦听函数是一个匿名函数
 
 
